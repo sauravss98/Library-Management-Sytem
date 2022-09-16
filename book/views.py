@@ -11,12 +11,12 @@ class CreateBookDetails(generics.CreateAPIView):
     serializer_class = BookSerializer
 
 class ListBooks(generics.ListAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdmin,)
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 
 class ListBook(generics.RetrieveAPIView):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAdmin,)
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 

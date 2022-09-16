@@ -12,6 +12,9 @@ from book.models import Book
 class CreateCheckout(generics.CreateAPIView):
     permission_classes = (IsAdmin,)
     
+    def get_serializer_class(self):
+        return CheckOutSerializer
+    
     def create(self, request, *args, **kwargs):
         serializer=CheckOutSerializer(data=request.data)
 
@@ -44,6 +47,8 @@ class ListCheckout(generics.RetrieveAPIView):
 
 class UpdateCheckoutDetails(generics.UpdateAPIView):
     permission_classes = (IsAdmin,)
+    def get_serializer_class(self):
+        return CheckOutSerializer
     
     def update(self, request, *args, **kwargs):
         try:

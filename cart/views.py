@@ -2,6 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from user import serializers
 from cart.serializers import CheckOutSerializer
 from cart.models import CheckOut
 from user.permissions import IsAdmin
@@ -27,8 +28,9 @@ class CreateCheckout(generics.CreateAPIView):
             if requiredQuantity>book.quantity:
                 return Response("Not enough book available")
             elif serializer.is_valid():
-                book.qty-=requiredQuantity
+                book.quantity-=requiredQuantity
                 book.save()
+                serializer.save()
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors)
